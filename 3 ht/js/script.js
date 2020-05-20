@@ -17,6 +17,7 @@ const addUserBtn = document.querySelector('.add_user_btn');
 const tbody = document.querySelector('table tbody');
 const formAddUser = document.querySelector('form');
 let editingTd;
+let editArr = [];
 
 function addUser(inputNameValue, inputSecondNameValue, inputAgeValue) {
     let tr = document.createElement('tr');
@@ -36,9 +37,7 @@ function editUser (){
     let tr = this.closest ('tr');
     
     let tdArr = tr.cells;
-        tdFirstName = tdArr[0].textContent;
-        tdSecondName = tdArr[1].textContent;
-        tdAge = tdArr[2].textContent;
+ 
    for(let i = 0; i < tdArr.length; i++){
        if(tdArr[i].classList.contains('btns_td')){
         tdArr[i].innerHTML = `
@@ -56,12 +55,16 @@ function editUser (){
         cancelBtn.addEventListener('click', cancelEdit);
        }else{
         tdValue = tdArr[i].innerHTML;
+        editArr.push(tdValue);
         let input =  document.createElement('input');
         input.value = tdValue;
         tdArr[i].innerHTML = '';
         tdArr[i].append(input);
        }   
-   }   
+   } 
+   console.log(editArr);
+
+     
 }
 function editRow(){
     const tr = this.closest('tr');
@@ -76,16 +79,18 @@ function editRow(){
 function cancelEdit(){
     const tr = this.closest('tr');
     const tdArr =  tr.cells;
-    let editArr = [];
-    editArr.push (`${tdFirstName}`);
-    editArr.push (`${tdSecondName}`);
-    editArr.push (`${tdAge}`);
+    console.log(editArr);
+    
     for(let i = 0; i < tdArr.length-1; i++){ 
         const value = editArr[i];
         tdArr[i].innerHTML = value;
     }
     tdArr[tdArr.length-1].remove();
-    addTdWithBtns (tr);  
+    addTdWithBtns (tr); 
+    editArr = [];
+    return editArr;
+    
+    
 }
 function addTdWithBtns (tr){
     let deleteUserBtn = document.createElement('button');

@@ -6,3 +6,6 @@ td {
     padding: 5px;
     color: black;
 }
+table tbody tr:first-child td {
+    font-weight: bold;
+}
